@@ -24,11 +24,10 @@
                 <button type="submit" class="btn btn-outline-primary">Login</button>
             </div>
         </form>
-    </p>
+    </p><br><br>
     <!-- If login success -->
     {% if isLogin %}
     <form action="/rute" method="post" enctype="multipart/form-data"> 
-    <br><br>
     <h3>Halo {{nama}}! </h3>
         <div class="row" style="padding-top: 10px;">
             <label for="tanggal" class="col-sm-2" style="padding-top: 5px; padding-left: 15px;">Pilih tanggal</label>
@@ -44,7 +43,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="pintuMasuk" class="col-sm-2">Pilih pintu masuk</label>
+            <label for="pintuMasuk" class="col-sm-2" style="padding-top: 7px;">Pilih pintu masuk</label>
             <div class="col-sm-5">
                 <select name="pintuMasuk" id="pintuMasuk" class="custom-select" required>
                     <option value="">Pilih pintu masuk</option>
@@ -55,13 +54,40 @@
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-outline-primary" onclick="{{ url_for('rute') }}">Submit</button>
+        <div class="form-group row">
+            <label for="jampel" class="col-sm-2" style="padding-top: 7px;">Jam pelajaran ke</label>
+            <div class="col-sm-5">
+                <select name="jampel" id="jampel" class="custom-select">
+                    <option value="">Pilih jam pelajaran</option>
+                    {% if jam1 %}
+                    <option value="1">1</option>
+                    {% else %}
+                    {% endif %}
+                    {% if jam2 %}
+                    <option value="2">2</option>
+                    {% else %}
+                    {% endif %}
+                    {% if jam3 %}
+                    <option value="3">3</option>
+                    {% else %}
+                    {% endif %}
+                    {% if jam4 %}
+                    <option value="4">4</option>
+                    {% else %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
         <button type="reset" class="btn btn-outline-danger">Reset</button>
     </form>    
-    {{tanggal}}
+    <!-- {{tanggal}} -->
+    <form action="/arah" method="post">
+
+    </form>
+
     <!-- If login not success -->
     {% else %}
-    
     {% endif %}
     <!-- JQuery -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
