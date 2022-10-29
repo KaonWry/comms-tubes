@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <!-- Date Time Picker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
-    <title>ITB Helper</title>
+    <title>Anglur Selur</title>
 </head>
 <body style="margin-left: 20px;">
     <p>
@@ -27,9 +27,9 @@
     </p>
     <!-- If login success -->
     {% if isLogin %}
+    <form action="/rute" method="post" enctype="multipart/form-data"> 
     <br><br>
-    <h3>Selamat datang {{Nama}}!</h3>
-    <form action="" method="post" enctype="multipart/form-data"> 
+    <h3>Halo {{nama}}! </h3>
         <div class="row" style="padding-top: 10px;">
             <label for="tanggal" class="col-sm-2" style="padding-top: 5px; padding-left: 15px;">Pilih tanggal</label>
             <div class="col-sm-5">
@@ -48,16 +48,17 @@
             <div class="col-sm-5">
                 <select name="pintuMasuk" id="pintuMasuk" class="custom-select" required>
                     <option value="">Pilih pintu masuk</option>
-                    <option value="Seni Rupa">Gerbang Seni Rupa</option>
-                    <option value="Sipil">Gerbang Sipil</option>
-                    <option value="Utama Selatan">Gerbang Utama Selatan</option>
+                    <option value="seniRupa">Gerbang Seni Rupa</option>
+                    <option value="sipil">Gerbang Sipil</option>
+                    <option value="utama">Gerbang Utama Selatan</option>
+                    <option value="lanjut">Gedung Sebelumnya</option>
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-outline-primary col-sm-1">Go</button>
-        <button type="reset" class="btn btn-outline-primary col-sm-1">Reset</button>
+        <button type="submit" class="btn btn-outline-primary" onclick="{{ url_for('rute') }}">Submit</button>
+        <button type="reset" class="btn btn-outline-danger">Reset</button>
     </form>    
-    
+    {{tanggal}}
     <!-- If login not success -->
     {% else %}
     

@@ -1,11 +1,14 @@
-# Import modules
-import locale
-from flask import Flask, request, render_template
+# Modules
+from crypt import methods
+from os import getlogin, write
+import time
 import datetime
 from datetime import date, timedelta
+import sys
+import locale
+from flask import Flask, request, render_template
 
-
-# Set locale for time
+# Set locale
 locale.setlocale(locale.LC_ALL, '')
 
 # Flask constructor
@@ -16,10 +19,11 @@ app = Flask(__name__)
 def startup():
     return render_template("index.html")
 
-# Login NIM
-@app.route("/login", methods=["GET", "POST"])
+# Login
+@app.route("/login", methods=["POST", "GET"])
 def login():
-    # Import NIM and Nama list
+    isLogin = False
+    # Import NIM
     importData = open("dataKelas02.txt", "r")
     importData = importData.read()
     importData = (importData.split("\n"))
@@ -31,16 +35,41 @@ def login():
         dataNama[j] = i[1]
         dataNIM[j] = i[0]
         j += 1
-    nomorNIM = request.form.get("NIM")
-    isLogin = False
-    if (nomorNIM in dataNIM):
-        Nama = dataNama[dataNIM.index(nomorNIM)]
+    inpNIM = request.form.get("NIM")
+    # Input
+    if (inpNIM in dataNIM):
+        nama = dataNama[dataNIM.index(inpNIM)]
         isLogin = True
-        return render_template("index.html", isLogin = isLogin, Nama = Nama, NIM = nomorNIM)
     else:
-        isLogin = False        
-        return render_template("index.html", isLogin = isLogin)
-    
+        nama = ""
+        isLogin = False
+    f = open("session.txt", "w")
+    f = f.write(f"{nama}\n{isLogin}")
+    # Output
+    if (request.method == "POST"):
+        return render_template("index.html", nama = nama, isLogin = isLogin)
+    else:
+        return render_template("index.html")
+
+
+# Petunjuk arah
+@app.route("/rute", methods=["POST", "GET"])
+def rute():
+    f = open("session.txt")
+    f = f.read()
+    f = f.split("\n")
+    nama = f[0]
+    isLogin = f[1]
+    tanggal = request.form.get("tanggal")
+    tanggal = int(time.mktime(datetime.datetime.strptime(tanggal, "%m/%d/%Y").timetuple()))
+    tanggal = datetime.datetime.fromtimestamp(tanggal).strftime("%A")
+    gerbang = request.form.get("gerbang")
+    # Output
+    if (request.method == "POST"):
+        return render_template("index.html", tanggal = tanggal, isLogin = isLogin, nama = nama)
+    else:
+        return render_template("index.html")
+
 
 if __name__=='__main__':
     app.run(debug=True)
