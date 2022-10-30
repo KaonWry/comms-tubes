@@ -80,15 +80,15 @@
                     <div class="col-sm-5">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="minggu">Minggu A &nbsp;</label>
-                            <input class="form-check-input custom-radio" type="radio" name="minggu" id="mingguA" value="a">
+                            <input class="form-check-input custom-radio" type="radio" name="minggu" id="mingguA" value="a" required>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label" for="minggu">Minggu B &nbsp;</label>
-                            <input class="form-check-input custom-radio" type="radio" name="minggu" id="mingguB" value="b">
+                            <input class="form-check-input custom-radio" type="radio" name="minggu" id="mingguB" value="b" required>
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" style="padding-top: 10px;">
                     <label for="pintuMasuk" class="col-sm-3" style="padding-top: 7px;">Anda masuk dari</label>
                     <div class="col-sm-5">
                     <select name="pintuMasuk" id="pintuMasuk" class="custom-select" required>
@@ -118,7 +118,7 @@
     </div>
     </div><br>
     {% if jadwalHariIni %}
-    <pre><p>Pada tersebut jadwal anda adalah : {{jadwalHariIni}}</p></pre>
+    <p>Pada tersebut jadwal anda adalah &nbsp; : &nbsp; {{jadwalHariIni}}</p>
     {% else %}
     <pre><p>{{ruteJalan}}</p></pre>
     {% endif %}

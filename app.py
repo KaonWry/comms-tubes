@@ -257,7 +257,8 @@ Kalender[642] ='Verifikasi Portofolio Semester II-2022/2023'
 # Program startup
 @app.route("/")
 def startup():
-    os.remove("session.txt")
+    if (os.path.isfile("session.txt")):
+        os.remove("session.txt")
     return render_template("index.html")
 
 # Login
@@ -324,26 +325,37 @@ def rute():
     inpNIM = f[1]
     isLogin = f[2]
     hari = request.form.get("hari")
-    gerbang = request.form.get("pintuMasuk")
-    jadwal = request.form.get("jampel")
+    gerbang = int(request.form.get("pintuMasuk"))
+    jadwal = int(request.form.get("jampel"))
     minggu = request.form.get("minggu")
     def readRoute(txt, jadwal, gerbang):
         inpRead = (open(txt).read()).split("\n\n\n")
         for i in range(len(inpRead)):
             inpRead[i] = list((inpRead[i]).split("\n\n"))
         return (inpRead[jadwal-1])[gerbang-1]
+
     if (hari == "1"):
-        ruteJalan = readRoute("arahSenin.txt", int(jadwal), int(gerbang))
+        bukaHari = "arahSenin.txt"
     elif (hari == "2"):
-        ruteJalan = readRoute("arahSelasa.txt", int(jadwal), int(gerbang))
+        if (minggu == "a"):
+            bukaHari = "arahSelasaA.txt"
+        elif (minggu == "b"):
+            bukaHari = "arahSelasaB.txt"
     elif (hari == "3"):
-        ruteJalan = readRoute("arahRabu.txt", int(jadwal), int(gerbang))
+        bukaHari = "arahRabu.txt"
     elif (hari == "4"):
-        ruteJalan = readRoute("arahKamis.txt", int(jadwal), int(gerbang))
+        bukaHari = "arahKamis.txt"
     elif (hari == "5"):
-        ruteJalan = readRoute("arahSenin.txt", int(jadwal), int(gerbang))
+        bukaHari = "arahJumat.txt"
+    
+    if (hari in ["6", "7"]):
+        ruteJalan = "Hari ini libur\nYey:)"
     else:
-        ruteJalan = "Hari ini libur, tidak ada jadwal\nYey :)"
+        jumlahJam = int(len((open(bukaHari).read()).split("\n\n\n"))) + 1
+        if(jumlahJam > jadwal):
+            ruteJalan = readRoute(bukaHari, jadwal, gerbang)
+        else:
+            ruteJalan = "Tidak ada kuliah onsite jam segitu"
 
     
     # ruteJalan = ruteJalan.replace("\n", "<br>")
