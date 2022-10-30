@@ -322,7 +322,7 @@ def rute():
     f = f.read()
     f = f.split("\n")
     nama = f[0]
-    inpNIM = f[1]
+    inpNIM = int(f[1])
     isLogin = f[2]
     hari = request.form.get("hari")
     gerbang = int(request.form.get("pintuMasuk"))
@@ -338,7 +338,10 @@ def rute():
         bukaHari = "static/arahSenin.txt"
     elif (hari == "2"):
         if (minggu == "a"):
-            bukaHari = "static/arahSelasaA.txt"
+            if (inpNIM > 16322215):
+                bukaHari = "static/arahSelasaA216.txt"
+            else:
+                bukaHari = "static/arahSelasaA2.txt"
         elif (minggu == "b"):
             bukaHari = "static/arahSelasaB.txt"
     elif (hari == "3"):
@@ -346,8 +349,13 @@ def rute():
     elif (hari == "4"):
         bukaHari = "static/arahKamis.txt"
     elif (hari == "5"):
-        bukaHari = "static/arahJumat.txt"
-    
+        if (minggu == "a"):
+            if (inpNIM > 16322215):
+                bukaHari = "static/arahJumatA216.txt"
+            else:
+                bukaHari = "static/arahJumatA2.txt"
+        else:
+            bukaHari = "static/arahJumatA216.txt"
     if (hari in ["6", "7"]):
         ruteJalan = "Hari ini libur\nYey:)"
     else:

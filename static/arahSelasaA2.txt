@@ -1,0 +1,13 @@
+Gerbang seni rupa ➝ Jalan J ➝ Jalan G ➝ Jalan 4
+Tujuanmu ada di sebelah utara/kanan jalan 4 yaitu gedung Lab Fisika Dasar
+Selamat Praktikum Fisika Dasar. Jangan lupa jaslab :)
+
+Gerbang sipil ➝ Jalan D ➝ Jalan 3 ➝ Jalan E ➝ Jalan 4
+Tujuanmu ada di sebelah utara/kiri Jalan 4 yaitu gedung Lab Fisika Dasar
+Selamat Praktikum Fisika Dasar. Jangan lupa jaslab
+
+Gerbang utama selatan ➝ Jalan A ➝ Jalan B ➝ Jalan 2 ➝ Jalan G ➝ Jalan 4
+Tujuanmu ada di sebelah utara/kanan jalan 4 yaitu gedung Lab Fisika Dasar
+Selamat Praktikum Fisika Dasar. Jangan lupa jaslab :)
+
+Masih mata praktikum pertama, belum ada gedung sebelumnya :)
