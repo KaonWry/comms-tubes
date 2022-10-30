@@ -1,5 +1,6 @@
 # Modules
 from crypt import methods
+from curses.ascii import islower
 from os import getlogin, write
 import os
 import time
@@ -7,7 +8,7 @@ import datetime
 from datetime import date, timedelta
 import sys
 import locale
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, Markup
 
 # Set locale
 locale.setlocale(locale.LC_ALL, '')
@@ -284,13 +285,34 @@ def login():
         nama = ""
         isLogin = False
     f = open("session.txt", "w")
-    f = f.write(f"{nama}\n{isLogin}")
+    f = f.write(f"{nama}\n{inpNIM}\n{isLogin}")
     # Output
     if (request.method == "POST"):
         return render_template("index.html", nama = nama, isLogin = isLogin)
     else:
         return render_template("index.html")
 
+
+# Kalender
+@app.route("/jadwal", methods=["POST", "GET"])
+def kalender():
+    f = open("session.txt")
+    f = f.read()
+    f = f.split("\n")
+    nama = f[0]
+    inpNIM = f[1]
+    isLogin = f[2]
+    tanggal = request.form.get("tanggal")
+    tanggal = int(time.mktime(datetime.datetime.strptime(tanggal, "%m/%d/%Y").timetuple()))
+    tanggalAwal = int(datetime.datetime(2022, 1, 1).timestamp())
+    tanggalSekarang = ((tanggal - tanggalAwal)/(60*60*24))
+    tanggalSekarang = int(tanggalSekarang)
+    jadwalHariIni = Kalender[tanggalSekarang]
+    # Output
+    if (request.method == "POST"):
+        return render_template("index.html", tanggal = tanggal, isLogin = isLogin, jadwalHariIni = jadwalHariIni, nama = nama)
+    else:
+        return render_template("index.html")
 
 # Petunjuk arah
 @app.route("/rute", methods=["POST", "GET"])
@@ -299,39 +321,25 @@ def rute():
     f = f.read()
     f = f.split("\n")
     nama = f[0]
-    isLogin = f[1]
-    tanggal = request.form.get("tanggal")
-    tanggal = int(time.mktime(datetime.datetime.strptime(tanggal, "%m/%d/%Y").timetuple()))
-    tanggalAwal = datetime.datetime(2022, 1, 1).timestamp
-    hari = datetime.datetime.fromtimestamp(tanggal).strftime("%A")
-    # Atur dropdown hari
-    jam1 = True
-    jam2 = True
-    jam3 = True
-    jam4 = True
-    if (hari == "Tuesday"):
-        jam3 = False
-        jam4 = False
-    elif (hari == "Wednesday"):
-        jam4 = False
-        jam5 = False
-    elif (hari in ["Thursday", "Friday"]):
-        jam2 = False
-        jam3 = False
-        jam4 = False
-    elif (hari in ["Saturday", "Sunday"]):
-        jam1 = False
-        jam2 = False
-        jam3 = False
-        jam4 = False
-        
-    gerbang = request.form.get("gerbang")
-    # Output
+    inpNIM = f[1]
+    isLogin = f[2]
+    hari = request.form.get("hari")
+    gerbang = request.form.get("pintuMasuk")
+    jadwal = request.form.get("jampel")
+    def readRoute(txt, jadwal, gerbang):
+        inpRead = (open(txt).read()).split("\n\n\n")
+        for i in range(len(inpRead)):
+            inpRead[i] = list((inpRead[i]).split("\n\n"))
+        print(inpRead, file=sys.stderr)
+        return (inpRead[jadwal-1])[gerbang-1]
+    ruteJalan = readRoute("arahSenin.txt", int(jadwal), int(gerbang))
+    # ruteJalan = ruteJalan.replace("\n", "<br>")
     if (request.method == "POST"):
-        return render_template("index.html", tanggal = tanggal, isLogin = isLogin, nama = nama, jam1 = jam1, jam2 = jam2, jam3 = jam3, jam4 = jam4)
+        return render_template("index.html", nama = nama, ruteJalan = ruteJalan, isLogin = isLogin)
     else:
         return render_template("index.html")
-
-
+    
+    
+    
 if __name__=='__main__':
     app.run(debug=True)

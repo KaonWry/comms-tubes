@@ -14,6 +14,11 @@
     <title>Anglur Selur</title>
 </head>
 <body style="margin-left: 20px;">
+    <div style="align-self: center; text-align: center; padding-top: 20px;">
+        <h2>
+            Anglur Selur
+        </h2>
+    </div>
     <p>
         <form action="/login" method="post" enctype="multipart/form-data">
             <div class="form-group row">
@@ -27,65 +32,83 @@
     </p><br><br>
     <!-- If login success -->
     {% if isLogin %}
-    <form action="/rute" method="post" enctype="multipart/form-data"> 
-    <h3>Halo {{nama}}! </h3>
-        <div class="row" style="padding-top: 10px;">
-            <label for="tanggal" class="col-sm-2" style="padding-top: 5px; padding-left: 15px;">Pilih tanggal</label>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                        <input type="text" name="tanggal" id="tanggal" required class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-                        <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+    <h3>Halo {{nama}}! </h3><br><br>
+    <div class="row">
+        <!-- Cek jadwal -->
+        <div class="col">
+            <h4>Cek jadwal anda</h4><br>
+            <form action="/jadwal" method="post" enctype="multipart/form-data"> 
+                <div class="row" style="padding-top: 10px;">
+                    <label for="tanggal" class="col-sm-3" style="padding-top: 5px; padding-left: 15px;">Pilih tanggal</label>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                                <input type="text" name="tanggal" id="tanggal" required class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
+                                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+                <button type="reset" class="btn btn-outline-danger">Reset</button>
+            </form>
         </div>
-        <div class="form-group row">
-            <label for="pintuMasuk" class="col-sm-2" style="padding-top: 7px;">Pilih pintu masuk</label>
-            <div class="col-sm-5">
-                <select name="pintuMasuk" id="pintuMasuk" class="custom-select" required>
-                    <option value="">Pilih pintu masuk</option>
-                    <option value="seniRupa">Gerbang Seni Rupa</option>
-                    <option value="sipil">Gerbang Sipil</option>
-                    <option value="utama">Gerbang Utama Selatan</option>
-                    <option value="lanjut">Gedung Sebelumnya</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="jampel" class="col-sm-2" style="padding-top: 7px;">Jam pelajaran ke</label>
-            <div class="col-sm-5">
-                <select name="jampel" id="jampel" class="custom-select">
-                    <option value="">Pilih jam pelajaran</option>
-                    {% if jam1 %}
-                    <option value="1">1</option>
-                    {% else %}
-                    {% endif %}
-                    {% if jam2 %}
-                    <option value="2">2</option>
-                    {% else %}
-                    {% endif %}
-                    {% if jam3 %}
-                    <option value="3">3</option>
-                    {% else %}
-                    {% endif %}
-                    {% if jam4 %}
-                    <option value="4">4</option>
-                    {% else %}
-                    {% endif %}
-                </select>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
-        <button type="reset" class="btn btn-outline-danger">Reset</button>
-    </form>    
-    <!-- {{tanggal}} -->
-    <form action="/arah" method="post">
 
-    </form>
-
+        <!-- Cek rute -->
+        <div class="col">
+            <h4>Cek lokasi kelas anda</h4><br><br>
+            <form action="/rute" method="post" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label for="hari" class="col-sm-3" style="padding-top: 7px;">Pilih hari</label>
+                    <div class="col-sm-5">
+                        <select name="hari" id="hari" required class="custom-select">
+                            <option value="">Pilih hari</option>
+                            <option value="1">Senin</option>
+                            <option value="2">Selasa</option>
+                            <option value="3">Rabu</option>
+                            <option value="4">Kamis</option>
+                            <option value="5">Jumat</option>
+                            <option value="6">Sabtu</option>
+                            <option value="7">Minggu</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pintuMasuk" class="col-sm-3" style="padding-top: 7px;">Anda masuk dari</label>
+                    <div class="col-sm-5">
+                    <select name="pintuMasuk" id="pintuMasuk" class="custom-select" required>
+                        <option value="">Pilih pintu masuk</option>
+                        <option value="1">Gerbang Seni Rupa</option>
+                        <option value="2">Gerbang Sipil</option>
+                        <option value="3">Gerbang Utama Selatan</option>
+                        <option value="4">Gedung Sebelumnya</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="jampel" class="col-sm-3" style="padding-top: 7px;">Jam pelajaran ke</label>
+                <div class="col-sm-5">
+                    <select name="jampel" id="jampel" class="custom-select">
+                        <option value="">Pilih jam pelajaran</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+            <button type="reset" class="btn btn-outline-danger">Reset</button>
+        </form>    
+    </div>
+    </div><br>
+    {% if jadwalHariIni %}
+    <pre><p>Pada tersebut jadwal anda adalah : {{jadwalHariIni}}</p></pre>
+    {% else %}
+    <pre><p>{{ruteJalan}}</p></pre>
+    {% endif %}
     <!-- If login not success -->
     {% else %}
     {% endif %}
