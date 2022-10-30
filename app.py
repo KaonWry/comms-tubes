@@ -257,8 +257,8 @@ Kalender[642] ='Verifikasi Portofolio Semester II-2022/2023'
 # Program startup
 @app.route("/")
 def startup():
-    if (os.path.isfile("session.txt")):
-        os.remove("session.txt")
+    if (os.path.isfile("static/session.txt")):
+        os.remove("static/session.txt")
     return render_template("index.html")
 
 # Login
@@ -266,7 +266,7 @@ def startup():
 def login():
     isLogin = False
     # Import NIM
-    importData = open("dataKelas02.txt", "r")
+    importData = open("static/dataKelas02.txt", "r")
     importData = importData.read()
     importData = (importData.split("\n"))
     dataNIM = [0] * len(importData)
@@ -285,7 +285,7 @@ def login():
     else:
         nama = ""
         isLogin = False
-    f = open("session.txt", "w")
+    f = open("static/session.txt", "w")
     f = f.write(f"{nama}\n{inpNIM}\n{isLogin}")
     # Output
     if (request.method == "POST"):
@@ -297,7 +297,7 @@ def login():
 # Kalender
 @app.route("/jadwal", methods=["POST", "GET"])
 def kalender():
-    f = open("session.txt")
+    f = open("static/session.txt")
     f = f.read()
     f = f.split("\n")
     nama = f[0]
@@ -318,7 +318,7 @@ def kalender():
 # Petunjuk arah
 @app.route("/rute", methods=["POST", "GET"])
 def rute():
-    f = open("session.txt")
+    f = open("static/session.txt")
     f = f.read()
     f = f.split("\n")
     nama = f[0]
@@ -335,18 +335,18 @@ def rute():
         return (inpRead[jadwal-1])[gerbang-1]
 
     if (hari == "1"):
-        bukaHari = "arahSenin.txt"
+        bukaHari = "static/arahSenin.txt"
     elif (hari == "2"):
         if (minggu == "a"):
-            bukaHari = "arahSelasaA.txt"
+            bukaHari = "static/arahSelasaA.txt"
         elif (minggu == "b"):
-            bukaHari = "arahSelasaB.txt"
+            bukaHari = "static/arahSelasaB.txt"
     elif (hari == "3"):
-        bukaHari = "arahRabu.txt"
+        bukaHari = "static/arahRabu.txt"
     elif (hari == "4"):
-        bukaHari = "arahKamis.txt"
+        bukaHari = "static/arahKamis.txt"
     elif (hari == "5"):
-        bukaHari = "arahJumat.txt"
+        bukaHari = "static/arahJumat.txt"
     
     if (hari in ["6", "7"]):
         ruteJalan = "Hari ini libur\nYey:)"

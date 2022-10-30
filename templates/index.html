@@ -13,27 +13,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
     <title>Anglur Selur</title>
 </head>
-<body style="margin-left: 20px;">
-    <div style="align-self: center; text-align: center; padding-top: 20px;">
-        <h2>
+<body style="background-color: #232931; color: #EEEEEE;">
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-between" style="background-color: #393E46;">
+    <div class="navbar-brand" style="padding-top: 20px;">
+        <h1>
             Anglur Selur
-        </h2>
+        </h1>
     </div>
-    <p>
+    <div>
         <form action="/login" method="post" enctype="multipart/form-data">
-            <div class="form-group row">
-                <label for="NIM" class="col-sm-1 col-form-label">NIM</label>
-                <div class="col-sm-3">
+            <div class=" form-inline">
+                <label for="NIM" style="color: white;">NIM</label>
+                <div style="margin: 10px;">
                     <input type="text" name="NIM" id="NIM" class="form-control" required pattern="[0-9]+">
                 </div>
                 <button type="submit" class="btn btn-outline-primary">Login</button>
             </div>
         </form>
-    </p><br><br>
+    </div>
+    </nav><br><br>
     <!-- If login success -->
     {% if isLogin %}
-    <h3>Halo {{nama}}! </h3><br><br>
-    <div class="row">
+    <h3 style="text-align: center;">Halo {{nama}}! </h3><br><br>
+    <div class="row" style="padding-left: 10px;">
         <!-- Cek jadwal -->
         <div class="col">
             <h4>Cek jadwal anda</h4><br>
@@ -118,9 +120,9 @@
     </div>
     </div><br>
     {% if jadwalHariIni %}
-    <p>Pada tersebut jadwal anda adalah &nbsp; : &nbsp; {{jadwalHariIni}}</p>
+    <p style="text-align: center;">Pada tersebut jadwal anda adalah &nbsp; :  {{jadwalHariIni}}</p>
     {% else %}
-    <pre><p>{{ruteJalan}}</p></pre>
+    <pre><p style="text-align: center;color: #E7F6F2;">{{ruteJalan}}</p></pre>
     {% endif %}
     <!-- If login not success -->
     {% else %}
