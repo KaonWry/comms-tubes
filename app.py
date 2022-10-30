@@ -326,13 +326,26 @@ def rute():
     hari = request.form.get("hari")
     gerbang = request.form.get("pintuMasuk")
     jadwal = request.form.get("jampel")
+    minggu = request.form.get("minggu")
     def readRoute(txt, jadwal, gerbang):
         inpRead = (open(txt).read()).split("\n\n\n")
         for i in range(len(inpRead)):
             inpRead[i] = list((inpRead[i]).split("\n\n"))
-        print(inpRead, file=sys.stderr)
         return (inpRead[jadwal-1])[gerbang-1]
-    ruteJalan = readRoute("arahSenin.txt", int(jadwal), int(gerbang))
+    if (hari == "1"):
+        ruteJalan = readRoute("arahSenin.txt", int(jadwal), int(gerbang))
+    elif (hari == "2"):
+        ruteJalan = readRoute("arahSelasa.txt", int(jadwal), int(gerbang))
+    elif (hari == "3"):
+        ruteJalan = readRoute("arahRabu.txt", int(jadwal), int(gerbang))
+    elif (hari == "4"):
+        ruteJalan = readRoute("arahKamis.txt", int(jadwal), int(gerbang))
+    elif (hari == "5"):
+        ruteJalan = readRoute("arahSenin.txt", int(jadwal), int(gerbang))
+    else:
+        ruteJalan = "Hari ini libur, tidak ada jadwal\nYey :)"
+
+    
     # ruteJalan = ruteJalan.replace("\n", "<br>")
     if (request.method == "POST"):
         return render_template("index.html", nama = nama, ruteJalan = ruteJalan, isLogin = isLogin)
